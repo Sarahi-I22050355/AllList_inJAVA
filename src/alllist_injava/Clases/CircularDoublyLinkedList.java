@@ -5,6 +5,25 @@ public class CircularDoublyLinkedList {
         private DoubleNode head;
     private DoubleNode lastNode;
 
+        // Getter para head
+    public DoubleNode getHead() {
+        return head;
+    }
+
+    // Setter para head
+    public void setHead(DoubleNode head) {
+        this.head = head;
+    }
+
+    // Getter para lastNode
+    public DoubleNode getLastNode() {
+        return lastNode;
+    }
+
+    // Setter para lastNode
+    public void setLastNode(DoubleNode lastNode) {
+        this.lastNode = lastNode;
+    }
     public CircularDoublyLinkedList() {
         clear();
     }
@@ -24,33 +43,6 @@ public class CircularDoublyLinkedList {
             head.setBack(newNode);
         }
     }
-
-    /*public void delete(int data) {
-        DoubleNode copyHead = head;
-        DoubleNode copyHeadTracking = null;
-        boolean buscar = false;
-        do {
-            if (copyHead.getData() == data) {
-                if (copyHead == head) {
-                    head = head.getNext();
-                    head.setBack(lastNode);
-                    lastNode.setNext(head);
-                } else if (copyHead == lastNode) {
-                    copyHeadTracking.setNext(head);
-                    lastNode = copyHeadTracking;
-                } else {
-                    copyHeadTracking.setNext(copyHead.getNext());
-                    copyHead.getNext().setBack(copyHeadTracking);
-                }
-                buscar = true;
-            }
-            copyHeadTracking = copyHead;
-            copyHead = copyHead.getNext();
-        } while (!buscar);
-        if (!buscar) {
-            return;
-        }
-    }*/
     public void delete(int data) {
         DoubleNode copyHead = head;
         DoubleNode copyHeadTracking = null;
@@ -119,25 +111,5 @@ public class CircularDoublyLinkedList {
 
     public void clear() {
         head = null;
-    }
-
-    // Getter para head
-    public DoubleNode getHead() {
-        return head;
-    }
-
-    // Setter para head
-    public void setHead(DoubleNode head) {
-        this.head = head;
-    }
-
-    // Getter para lastNode
-    public DoubleNode getLastNode() {
-        return lastNode;
-    }
-
-    // Setter para lastNode
-    public void setLastNode(DoubleNode lastNode) {
-        this.lastNode = lastNode;
     }
 }

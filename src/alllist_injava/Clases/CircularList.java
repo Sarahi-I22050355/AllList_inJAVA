@@ -5,6 +5,25 @@ public class CircularList {
         private Node head;
     private Node lastNode;
 
+        // Getter para head
+    public Node getHead() {
+        return head;
+    }
+
+    // Setter para head
+    public void setHead(Node head) {
+        this.head = head;
+    }
+
+    // Getter para lastNode
+    public Node getLastNode() {
+        return lastNode;
+    }
+
+    // Setter para lastNode
+    public void setLastNode(Node lastNode) {
+        this.lastNode = lastNode;
+    }
     public CircularList() {
         clear();
     }
@@ -21,34 +40,7 @@ public class CircularList {
             lastNode = newNode;
         }
     }
-
-    /*public void delete(int data) {
-        Node copyHead = head;
-        Node copyHeadTracking = null;
-        boolean buscar = false;
-        if (isEmpty()) {
-            return;
-        }
-        do {
-            if (copyHead.getData() == data) {
-                if (copyHead == head) {
-                    head = head.getNext();
-                    lastNode.setNext(head);
-                } else if (copyHead == lastNode) {
-                    copyHeadTracking.setNext(head);
-                    lastNode = copyHeadTracking;
-                } else {
-                    copyHeadTracking.setNext(copyHead.getNext());
-                }
-                buscar = true;
-            }
-            copyHeadTracking = copyHead;
-            copyHead = copyHead.getNext();
-        } while (copyHead != head && !buscar);
-        if (!buscar) {
-            return;
-        }
-    }*/
+    
     public void delete(int data) {
         Node copyHead = head;
         Node copyHeadTracking = null;
@@ -124,25 +116,5 @@ public class CircularList {
 
     public void clear() {
         head = null;
-    }
-
-    // Getter para head
-    public Node getHead() {
-        return head;
-    }
-
-    // Setter para head
-    public void setHead(Node head) {
-        this.head = head;
-    }
-
-    // Getter para lastNode
-    public Node getLastNode() {
-        return lastNode;
-    }
-
-    // Setter para lastNode
-    public void setLastNode(Node lastNode) {
-        this.lastNode = lastNode;
     }
 }

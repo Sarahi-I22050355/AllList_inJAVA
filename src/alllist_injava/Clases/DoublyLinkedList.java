@@ -25,6 +25,7 @@ public class DoublyLinkedList {
     }
 
     public DoublyLinkedList() {
+        clear();
     }
 
     public void add(int data) {
@@ -42,30 +43,6 @@ public class DoublyLinkedList {
         }
     }
 
-    /*public void delete(int data) {
-        DoubleNode copyHead = head;
-        DoubleNode copyHeadTracking = null;
-        boolean buscar = false;
-        while (copyHead != null && !buscar) {
-            if (copyHead.getData() == data) {
-                if (copyHead == head) {
-                    head = head.getNext();
-                    if (head != null) {
-                        head.setBack(null);
-                    }
-                } else if (copyHead == lastNode) {
-                    copyHeadTracking.setNext(null);
-                    lastNode = copyHeadTracking;
-                } else {
-                    copyHeadTracking.setNext(copyHead.getNext());
-                    copyHead.getNext().setBack(copyHeadTracking);
-                }
-                buscar = true;
-            }
-            copyHeadTracking = copyHead;
-            copyHead = copyHead.getNext();
-        }
-    }*/
     public void delete(int data) {
         DoubleNode copyHead = head;
         DoubleNode copyHeadTracking = null;
