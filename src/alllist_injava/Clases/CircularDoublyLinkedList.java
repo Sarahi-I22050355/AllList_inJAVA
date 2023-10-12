@@ -25,7 +25,7 @@ public class CircularDoublyLinkedList {
         this.lastNode = lastNode;
     }
     public CircularDoublyLinkedList() {
-        clear();
+        head=null;
     }
 
     public void add(int data) {
@@ -111,9 +111,5 @@ public class CircularDoublyLinkedList {
 
     public boolean isEmpty() {
         return head == null;
-    }
-
-    public void clear() {
-        head = null;
     }
 }

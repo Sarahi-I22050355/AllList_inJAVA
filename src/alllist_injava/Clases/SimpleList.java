@@ -1,7 +1,7 @@
 
 package alllist_injava.Clases;
 
-public class SimpleList {
+public class SimpleList implements I_methodList{
     private Node head;
     
     public Node getHead() {
@@ -13,7 +13,7 @@ public class SimpleList {
     }
 
     public SimpleList() {
-        clear();
+        head=null;
     }
 
     public void add(int data) {
@@ -110,10 +110,5 @@ public class SimpleList {
     public boolean isEmpty() {
         return head == null;
     }
-
-    public void clear() {
-        head=null;
-    }
-
 }
 

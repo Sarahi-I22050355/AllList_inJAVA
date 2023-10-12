@@ -25,7 +25,7 @@ public class DoublyLinkedList {
     }
 
     public DoublyLinkedList() {
-        clear();
+        head=null;
     }
 
     // Agrega un nuevo nodo con el dato proporcionado al final de la lista
@@ -125,9 +125,5 @@ public class DoublyLinkedList {
 
     public boolean isEmpty() {
         return head == null;
-    }
-
-    public void clear() {
-        head = null;
     }
 }

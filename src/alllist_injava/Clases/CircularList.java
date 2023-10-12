@@ -25,7 +25,7 @@ public class CircularList {
         this.lastNode = lastNode;
     }
     public CircularList() {
-        clear();
+        head=null;
     }
 
     // Agrega un nuevo nodo con el dato proporcionado al final de la lista
@@ -129,9 +129,5 @@ public class CircularList {
 
     public boolean isEmpty() {
         return head == null;
-    }
-
-    public void clear() {
-        head = null;
     }
 }
