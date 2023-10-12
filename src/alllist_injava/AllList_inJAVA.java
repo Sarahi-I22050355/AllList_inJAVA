@@ -20,7 +20,7 @@ public class AllList_inJAVA {
                 System.out.println("[3] Lista doble enlazada.");
                 System.out.println("[4] Lista circular doble enlazada.");
                 System.out.println("[5] Salir.");
-                System.out.print("Ingresa una opción (1 - 5): ");
+                System.out.print("Ingresa una opcion (1 - 5): ");
                 int option = scanner.nextInt();
                 
                 switch (option) {

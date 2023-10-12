@@ -2,13 +2,12 @@
 package alllist_injava.Clases;
 
 public class SimpleList {
-        private Node head;
-        // Getter para head
+    private Node head;
+    
     public Node getHead() {
-        return head;
+    return head;
     }
 
-    // Setter para head
     public void setHead(Node head) {
         this.head = head;
     }
@@ -18,129 +17,77 @@ public class SimpleList {
     }
 
     public void add(int data) {
-        Node newNode = new Node(data);
+        Node newNode = new Node();
+        newNode.setData(data);
+
         if (isEmpty()) {
-            head = newNode;
+            setHead(newNode);
+            return;
         }
+
         if (exist(newNode.getData())) {
             return;
         } else {
-            Node copyHead = head;
-            while (copyHead.getNext() != null) {
-                copyHead = copyHead.getNext();
+            Node currentNode = getHead();
+            while (currentNode.getNext() != null) {
+                currentNode = currentNode.getNext();
             }
-            copyHead.setNext(newNode);
+            currentNode.setNext(newNode);
         }
     }
 
-    /*public void delete(int data) {
-        Node copyHead = head;
-        Node copyHeadTracking = null;
-        if (isEmpty()) {
-            return;
-        }
-        if (head != null) {
-            copyHead = head;
-            while ((copyHead.getNext() != null) && (copyHead.getData() != data)) {
-                copyHeadTracking = copyHead;
-                copyHead = copyHead.getNext();
-            }
-            if (copyHead.getData() != data) {
-                return;
-            } else {
-                if (head == copyHead) {
-                    head = copyHead.getNext();
-                } else {
-                    copyHeadTracking.setNext(copyHead.getNext());
-                }
-                copyHead = null;
-            }
-        }
-    }*/
     public void delete(int data) {
-    Node copyHead = head;
-    Node copyHeadTracking = null;
-
-    if (isEmpty()) {
-        return;
-    } else {
-        copyHead = head;
-        while (copyHead.getNext() != null && copyHead.getData() != data) {
-            copyHeadTracking = copyHead;
-            copyHead = copyHead.getNext();
-        }
-        if (copyHead.getData() != data) {
-            System.out.println("- Dato[" + data + "] no existe en la lista");
-        } else {
-            if (head == copyHead) {
-                System.out.println("- Dato[" + data + "] se eliminó de la lista");
-                head = copyHead.getNext();
-                return;
-            } else {
-                System.out.println("- Dato[" + data + "] se eliminó de la lista");
-                copyHeadTracking.setNext(copyHead.getNext());
-            }
-            copyHead = null;
-        }
-    }
-}
-
-
-    /*public void search(int data) {
         if (isEmpty()) {
-            System.out.println("Lista vacia...");
-        }
-        if (head != null && head.getData() == data) {
-            System.out.println("- Dato[" + data + "] Existe en la lista");
             return;
         }
-        Node copyHead = head;
-        while (copyHead.getNext() != null) {
-            if (copyHead.getNext().getData() >= data) {
-                break;
+
+        if (getHead().getData() == data) {
+            setHead(getHead().getNext());
+            System.out.println("- Dato[" + data + "] se elimino de la lista");
+            return;
+        }
+
+        Node currentNode = getHead();
+        while (currentNode.getNext() != null) {
+            if (currentNode.getNext().getData() == data) {
+                currentNode.setNext(currentNode.getNext().getNext());
+                System.out.println("- Dato[" + data + "] se elimino de la lista");
+                return;
             }
-            copyHead = copyHead.getNext();
+            currentNode = currentNode.getNext();
         }
-        if (copyHead.getNext() != null && copyHead.getNext().getData() == data) {
-            System.out.println("- Dato[" + data + "] Existe en la lista");
-            return;
-        }
-        System.out.println("- Dato[" + data + "] No Existe en la lista ");
-    }*/
+        System.out.println("- Dato[" + data + "] no existe en la lista");
+    }
+
     public void search(int data) {
         if (isEmpty()) {
             System.out.println("Lista vacía...");
-        }
-        if (!isEmpty() && head.getData() == data) {
-            System.out.println("- Dato[" + data + "] Existe en la lista");
             return;
         }
-        Node copyHead = head;
-        while (copyHead.getNext() != null) {
-            if (copyHead.getNext().getData() == data) {
-                break;
+
+        Node currentNode = getHead();
+        while (currentNode.getNext() != null) {
+            if (currentNode.getData() == data) {
+                System.out.println("- Dato[" + data + "] Existe en la lista");
+                return;
             }
-            copyHead = copyHead.getNext();
-        }
-        if (copyHead.getNext() != null && copyHead.getNext().getData() == data) {
-            System.out.println("- Dato[" + data + "] Existe en la lista");
-            return;
+            currentNode = currentNode.getNext();
         }
         System.out.println("- Dato[" + data + "] No Existe en la lista");
     }
 
-
     public void show() {
+        int i = 1;
         if (isEmpty()) {
-            System.out.println("Lista vacia");
+            System.out.println("Lista vacía");
             return;
         }
-        Node copyHead = head;
-        int i = 1;
+
+        Node currentNode = getHead();
         System.out.println("=== Mi lista simple ===");
-        while (copyHead != null) {
-            System.out.println("- Nodo[" + i + "] y dato: " + copyHead.getData());
-            copyHead = copyHead.getNext();
+        while (currentNode != null) {
+            System.out.println("- Nodo[" + i + "] y dato: " + currentNode.getData());
+            currentNode = currentNode.getNext();
             i++;
         }
     }
@@ -149,18 +96,13 @@ public class SimpleList {
         if (isEmpty()) {
             return false;
         }
-        if (head != null && head.getData() == data) {
-            return true;
-        }
-        Node copyHead = head;
-        while (copyHead.getNext() != null) {
-            if (copyHead.getNext().getData() >= data) {
-                break;
+
+        Node currentNode = getHead();
+        while (currentNode.getNext() != null) {
+            if (currentNode.getData() == data) {
+                return true;
             }
-            copyHead = copyHead.getNext();
-        }
-        if (copyHead.getNext() != null && copyHead.getNext().getData() == data) {
-            return true;
+            currentNode = currentNode.getNext();
         }
         return false;
     }
@@ -168,7 +110,10 @@ public class SimpleList {
     public boolean isEmpty() {
         return head == null;
     }
-    public void clear(){
+
+    public void clear() {
         head=null;
     }
+
 }
+

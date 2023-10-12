@@ -2,7 +2,8 @@
 package alllist_injava.Clases;
 
 public class DoubleNode {
-        private DoubleNode back;
+    //encapsulamiento
+    private DoubleNode back;
     private DoubleNode next;
     private int data;
 
@@ -16,7 +17,7 @@ public class DoubleNode {
         back = null;
         next = null;
     }
-
+    //metodos accesores
     public DoubleNode getBack() {
         return back;
     }

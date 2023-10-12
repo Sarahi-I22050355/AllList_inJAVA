@@ -28,77 +28,99 @@ public class DoublyLinkedList {
         clear();
     }
 
+    // Agrega un nuevo nodo con el dato proporcionado al final de la lista
     public void add(int data) {
-        DoubleNode newNode = new DoubleNode(data);
+        DoubleNode newNode = new DoubleNode();
+        newNode.setData(data);
+
         if (isEmpty()) {
-            head = newNode;
-            head.setNext(null);
-            head.setBack(null);
-            lastNode = head;
+            setHead(newNode);
+            getHead().setNext(null);
+            getHead().setBack(null);
+            setLastNode(getHead());
+        }
+
+        if (exist(newNode.getData())) {
+            return;
         } else {
-            lastNode.setNext(newNode);
+            getLastNode().setNext(newNode);
             newNode.setNext(null);
-            newNode.setBack(lastNode);
-            lastNode = newNode;
+            newNode.setBack(getLastNode());
+            setLastNode(newNode);
         }
     }
 
+    // Elimina un nodo con el dato proporcionado de la lista
     public void delete(int data) {
-        DoubleNode copyHead = head;
-        DoubleNode copyHeadTracking = null;
-        boolean buscar = false;
-        while (copyHead != null && !buscar) {
-            if (copyHead.getData() == data) {
-                if (copyHead == head) {
-                    System.out.println("- Dato[" + data + "] Existe en la lista");
-                    head = head.getNext();
-                    if (head != null) {
-                        head.setBack(null);
-                    }
-                } else if (copyHead == lastNode) {
-                    System.out.println("- Dato[" + data + "] Existe en la lista");
-                    copyHeadTracking.setNext(null);
-                    lastNode = copyHeadTracking;
-                } else {
-                    System.out.println("- Dato[" + data + "] Existe en la lista");
-                    copyHeadTracking.setNext(copyHead.getNext());
-                    copyHead.getNext().setBack(copyHeadTracking);
+        DoubleNode currentNode = getHead();
+
+        if (getHead().getData() == data) {
+            // Primer elemento
+            System.out.println("- Dato[" + data + "] se elimino de la lista");
+            getHead().getNext().setBack(null);
+            setHead(getHead().getNext());
+            return;
+        }
+
+        while (currentNode.getNext() != null) {
+            if (currentNode.getNext().getData() == data) {
+                if (currentNode.getNext() == getLastNode()) {
+                    // Último elemento
+                    System.out.println("- Dato[" + data + "] se elimino de la lista");
+                    setLastNode(currentNode);
+                    getLastNode().setNext(null);
+                    return;
                 }
-                buscar = true;
+
+                // X posición de la lista
+                System.out.println("- Dato[" + data + "] se elimino de la lista");
+                currentNode.getNext().getNext().setBack(currentNode);
+                currentNode.setNext(currentNode.getNext().getNext());
+                return;
             }
-            copyHeadTracking = copyHead;
-            copyHead = copyHead.getNext();
+            currentNode = currentNode.getNext();
         }
-        if (!buscar) {
-            System.out.println("- Dato[" + data + "] no existe en la lista");
-        }
+        System.out.println("- Dato[" + data + "] no existe en la lista");
     }
 
-
+    // Busca un dato en la lista y muestra un mensaje indicando si existe o no
     public void search(int data) {
-        DoubleNode copyHead = head;
-        boolean buscar = false;
-        while (copyHead != null && !buscar) {
-            if (copyHead.getData() == data) {
-                System.out.println("- Dato[" + data + "] Existe en la lista ");
-                buscar = true;
+        DoubleNode currentNode = getHead();
+        while (currentNode != null) {
+            if (currentNode.getData() == data) {
+                System.out.println("- Dato[" + data + "] Existe en la lista");
+                return;
             }
-            copyHead = copyHead.getNext();
+            currentNode = currentNode.getNext();
         }
-        if (!buscar) {
-            System.out.println("- Dato[" + data + "] No Existe en la lista ");
-        }
+        System.out.println("- Dato[" + data + "] No existe en la lista");
     }
 
+    // Muestra todos los nodos y sus datos en la lista
     public void show() {
-        DoubleNode copyHead = head;
         int i = 1;
+        DoubleNode currentNode = getHead();
         System.out.println("=== Mi Lista doblemente enlazada ===");
-        while (copyHead != null) {
-            System.out.println("- Nodo[" + i + "] y dato: " + copyHead.getData());
-            copyHead = copyHead.getNext();
+        while (currentNode != null) {
+            System.out.println("- Nodo[" + i + "] y dato: " + currentNode.getData());
+            currentNode = currentNode.getNext();
             i++;
         }
+    }
+
+    // Comprueba si un dato existe en la lista
+    public boolean exist(int data) {
+        if (isEmpty()) {
+            return false;
+        }
+        DoubleNode currentNode = getHead();
+        while (currentNode.getNext() != null) {
+            if (currentNode.getData() == data) {
+                return true;
+            }
+            currentNode = currentNode.getNext();
+        }
+        return false;
     }
 
     public boolean isEmpty() {

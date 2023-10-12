@@ -1,6 +1,7 @@
 package alllist_injava.Clases;
 
 public class Node {
+    //encapsulamiento
     private Node next;
     private int data;
 
@@ -12,7 +13,7 @@ public class Node {
         data = d;
         next = null;
     }
-
+//metodos accesores
     public Node getNext() {
         return next;
     }

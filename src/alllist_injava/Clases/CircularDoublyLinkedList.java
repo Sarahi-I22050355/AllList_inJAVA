@@ -29,7 +29,8 @@ public class CircularDoublyLinkedList {
     }
 
     public void add(int data) {
-        DoubleNode newNode = new DoubleNode(data);
+        DoubleNode newNode = new DoubleNode();
+        newNode.setData(data);
         if (isEmpty()) {
             head = newNode;
             head.setNext(newNode);
@@ -43,58 +44,47 @@ public class CircularDoublyLinkedList {
             head.setBack(newNode);
         }
     }
+
     public void delete(int data) {
-        DoubleNode copyHead = head;
-        DoubleNode copyHeadTracking = null;
-        boolean buscar = false;
-
-        do {
-            if (copyHead.getData() == data) {
-                if (copyHead == head) {
-                    System.out.println("- Dato[" + data + "] Existe en la lista");
-                    head = head.getNext();
-                    head.setBack(lastNode);
-                    lastNode.setNext(head);
-                } else if (copyHead == lastNode) {
-                    System.out.println("- Dato[" + data + "] Existe en la lista");
-                    copyHeadTracking.setNext(head);
-                    lastNode = copyHeadTracking;
-                } else {
-                    System.out.println("- Dato[" + data + "] Existe en la lista");
-                    copyHeadTracking.setNext(copyHead.getNext());
-                    copyHead.getNext().setBack(copyHeadTracking);
-                }
-                buscar = true;
-            }
-            copyHeadTracking = copyHead;
-            copyHead = copyHead.getNext();
-        } while (!buscar);
-
-        if (!buscar) {
-            System.out.println("- Dato[" + data + "] No existe en la lista");
+        DoubleNode currentNode = head;
+        if (head.getData() == data) {
+            System.out.println("- Dato[" + data + "] se elimino de la lista");
+            head = head.getNext();
+            head.setBack(lastNode);
+            lastNode.setNext(head);
+            return;
         }
+        do {
+            if (currentNode.getNext().getData() == data) {
+                if (currentNode.getNext() == lastNode) {
+                    System.out.println("- Dato[" + data + "] se elimino de la lista");
+                    lastNode = lastNode.getBack();
+                    lastNode.setNext(head);
+                    return;
+                }
+                System.out.println("- Dato[" + data + "] se elimino de la lista");
+                currentNode.getNext().setBack(currentNode);
+                currentNode.setNext(currentNode.getNext().getNext());
+                return;
+            }
+            currentNode = currentNode.getNext();
+        } while (currentNode != head);
+        System.out.println("- Dato[" + data + "] No existe en la lista");
     }
 
     public void search(int data) {
         DoubleNode copyHead = head;
-        boolean buscar = false;
         do {
             if (copyHead.getData() == data) {
-                System.out.println("- Dato[" + data + "] Existe en la lista ");
-                buscar = true;
+                System.out.println("- Dato[" + data + "] Existe en la lista");
+                return;
             }
             copyHead = copyHead.getNext();
-        } while (copyHead != head && !buscar);
-        if (!buscar) {
-            System.out.println("- Dato[" + data + "] No Existe en la lista ");
-        }
+        } while (copyHead != head);
+        System.out.println("- Dato[" + data + "] No existe en la lista");
     }
 
     public void show() {
-        if (isEmpty()) {
-            System.out.println("Lista vacia");
-            return;
-        }
         DoubleNode copyHead = head;
         int i = 1;
         System.out.println("=== Mi Lista doblemente enlazada ===");
@@ -103,6 +93,20 @@ public class CircularDoublyLinkedList {
             copyHead = copyHead.getNext();
             i++;
         } while (copyHead != head);
+    }
+
+    public boolean exist(int data) {
+        if (isEmpty()) {
+            return false;
+        }
+        DoubleNode currentNode = head;
+        while (currentNode.getNext() != null) {
+            if (currentNode.getData() == data) {
+                return true;
+            }
+            currentNode = currentNode.getNext();
+        }
+        return false;
     }
 
     public boolean isEmpty() {

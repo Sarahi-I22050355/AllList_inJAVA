@@ -28,86 +28,103 @@ public class CircularList {
         clear();
     }
 
+    // Agrega un nuevo nodo con el dato proporcionado al final de la lista
     public void add(int data) {
-        Node newNode = new Node(data);
+        Node newNode = new Node();
+        newNode.setData(data);
+
         if (isEmpty()) {
-            head = newNode;
-            head.setNext(head);
-            lastNode = head;
+            setHead(newNode);
+            getHead().setNext(getHead());
+            setLastNode(getHead());
         } else {
-            lastNode.setNext(newNode);
-            newNode.setNext(head);
-            lastNode = newNode;
+            getLastNode().setNext(newNode);
+            newNode.setNext(getHead());
+            setLastNode(newNode);
         }
     }
-    
+
+    // Elimina un nodo con el dato proporcionado de la lista
     public void delete(int data) {
-        Node copyHead = head;
-        Node copyHeadTracking = null;
-        boolean buscar = false;
-
         if (isEmpty()) {
             return;
         }
 
+        Node currentNode = getHead();
         do {
-            if (copyHead.getData() == data) {
-                if (copyHead == head) {
-                    System.out.println("- Dato[" + data + "] se eliminó de la lista");
-                    head = head.getNext();
-                    lastNode.setNext(head);
-                } else if (copyHead == lastNode) {
-                    System.out.println("- Dato[" + data + "] se eliminó de la lista");
-                    copyHeadTracking.setNext(head);
-                    lastNode = copyHeadTracking;
-                } else {
-                    System.out.println("- Dato[" + data + "] se eliminó de la lista");
-                    copyHeadTracking.setNext(copyHead.getNext());
+            if (currentNode.getNext().getData() == data) {
+                if (currentNode.getNext() == getHead()) { // Primer elemento
+                    System.out.println("- Dato[" + data + "] se elimino de la lista");
+                    setHead(getHead().getNext());
+                    getLastNode().setNext(getHead());
+                    return;
                 }
-                buscar = true;
+                if (currentNode.getNext() == getLastNode()) { // Último elemento
+                    System.out.println("- Dato[" + data + "] se elimino de la lista");
+                    currentNode.setNext(getHead());
+                    setLastNode(currentNode);
+                    return;
+                }
+
+                // X posición de la lista
+                System.out.println("- Dato[" + data + "] se elimino de la lista");
+                currentNode.setNext(currentNode.getNext().getNext());
+                return;
             }
-
-            copyHeadTracking = copyHead;
-            copyHead = copyHead.getNext();
-        } while (copyHead != head && !buscar);
-
-        if (!buscar) {
-            return;
-        }
+            currentNode = currentNode.getNext();
+        } while (currentNode != getHead());
+        System.out.println("- Dato[" + data + "] no existe en la lista");
     }
 
-
+    // Busca un dato en la lista y muestra un mensaje indicando si existe o no
     public void search(int data) {
-        Node copyHead = head;
-        boolean buscar = false;
         if (isEmpty()) {
             return;
         }
+
+        Node currentNode = getHead();
         do {
-            if (copyHead.getData() == data) {
+            if (currentNode.getData() == data) {
                 System.out.println("- Dato[" + data + "] Existe en la lista");
-                buscar = true;
+                return;
             }
-            copyHead = copyHead.getNext();
-        } while (copyHead != head && !buscar);
-        if (!buscar) {
-            System.out.println("- Dato[" + data + "] No Existe en la lista ");
-        }
+            currentNode = currentNode.getNext();
+        } while (currentNode != getHead());
+        System.out.println("- Dato[" + data + "] No Existe en la lista");
     }
 
+    // Muestra todos los nodos y sus datos en la lista
     public void show() {
         if (isEmpty()) {
-            System.out.println("Lista vacia");
+            System.out.println("Lista vacía");
             return;
         }
-        Node copyHead = head;
+
+        Node currentNode = getHead();
         int i = 1;
         System.out.println("=== Mi lista Circular ===");
         do {
-            System.out.println("- Nodo[" + i + "] y dato: " + copyHead.getData());
-            copyHead = copyHead.getNext();
+            System.out.println("- Nodo[" + i + "] y dato: " + currentNode.getData());
+            currentNode = currentNode.getNext();
             i++;
-        } while (copyHead != head);
+        } while (currentNode != getHead());
+    }
+
+    // Comprueba si un dato existe en la lista
+    public boolean exist(int data) {
+        if (isEmpty()) {
+            return false;
+        }
+
+        Node currentNode = getHead();
+        do {
+            if (currentNode.getData() == data) {
+                return true;
+            }
+            currentNode = currentNode.getNext();
+        } while (currentNode != getHead());
+
+        return false;
     }
 
     public boolean isEmpty() {
