@@ -6,6 +6,6 @@ public interface I_methodList {
   void delete(int data);
   void search(int data); 
   void show();
-  boolean exist();
+  boolean exist(int data);
   boolean isEmpty();
 }

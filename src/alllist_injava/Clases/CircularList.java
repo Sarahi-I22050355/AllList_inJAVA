@@ -1,7 +1,7 @@
 
 package alllist_injava.Clases;
 
-public class CircularList {
+public class CircularList implements I_methodList{
         private Node head;
     private Node lastNode;
 
@@ -29,6 +29,7 @@ public class CircularList {
     }
 
     // Agrega un nuevo nodo con el dato proporcionado al final de la lista
+    @Override
     public void add(int data) {
         Node newNode = new Node();
         newNode.setData(data);
@@ -45,6 +46,7 @@ public class CircularList {
     }
 
     // Elimina un nodo con el dato proporcionado de la lista
+    @Override
     public void delete(int data) {
         if (isEmpty()) {
             return;
@@ -77,6 +79,7 @@ public class CircularList {
     }
 
     // Busca un dato en la lista y muestra un mensaje indicando si existe o no
+    @Override
     public void search(int data) {
         if (isEmpty()) {
             return;
@@ -94,6 +97,7 @@ public class CircularList {
     }
 
     // Muestra todos los nodos y sus datos en la lista
+    @Override
     public void show() {
         if (isEmpty()) {
             System.out.println("Lista vacía");
@@ -111,6 +115,7 @@ public class CircularList {
     }
 
     // Comprueba si un dato existe en la lista
+    @Override
     public boolean exist(int data) {
         if (isEmpty()) {
             return false;
@@ -126,7 +131,7 @@ public class CircularList {
 
         return false;
     }
-
+    @Override
     public boolean isEmpty() {
         return head == null;
     }

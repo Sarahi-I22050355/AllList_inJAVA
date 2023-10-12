@@ -15,7 +15,7 @@ public class SimpleList implements I_methodList{
     public SimpleList() {
         head=null;
     }
-
+    @Override
     public void add(int data) {
         Node newNode = new Node();
         newNode.setData(data);
@@ -35,7 +35,7 @@ public class SimpleList implements I_methodList{
             currentNode.setNext(newNode);
         }
     }
-
+    @Override
     public void delete(int data) {
         if (isEmpty()) {
             return;
@@ -58,7 +58,7 @@ public class SimpleList implements I_methodList{
         }
         System.out.println("- Dato[" + data + "] no existe en la lista");
     }
-
+    @Override
     public void search(int data) {
         if (isEmpty()) {
             System.out.println("Lista vacía...");
@@ -75,7 +75,7 @@ public class SimpleList implements I_methodList{
         }
         System.out.println("- Dato[" + data + "] No Existe en la lista");
     }
-
+    @Override
     public void show() {
         int i = 1;
         if (isEmpty()) {
@@ -91,7 +91,7 @@ public class SimpleList implements I_methodList{
             i++;
         }
     }
-
+    @Override
     public boolean exist(int data) {
         if (isEmpty()) {
             return false;
@@ -106,7 +106,7 @@ public class SimpleList implements I_methodList{
         }
         return false;
     }
-
+    @Override
     public boolean isEmpty() {
         return head == null;
     }

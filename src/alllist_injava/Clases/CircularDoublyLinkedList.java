@@ -1,7 +1,7 @@
 
 package alllist_injava.Clases;
 
-public class CircularDoublyLinkedList {
+public class CircularDoublyLinkedList implements I_methodList{
         private DoubleNode head;
     private DoubleNode lastNode;
 
@@ -27,7 +27,7 @@ public class CircularDoublyLinkedList {
     public CircularDoublyLinkedList() {
         head=null;
     }
-
+    @Override
     public void add(int data) {
         DoubleNode newNode = new DoubleNode();
         newNode.setData(data);
@@ -44,7 +44,7 @@ public class CircularDoublyLinkedList {
             head.setBack(newNode);
         }
     }
-
+    @Override
     public void delete(int data) {
         DoubleNode currentNode = head;
         if (head.getData() == data) {
@@ -71,7 +71,7 @@ public class CircularDoublyLinkedList {
         } while (currentNode != head);
         System.out.println("- Dato[" + data + "] No existe en la lista");
     }
-
+    @Override
     public void search(int data) {
         DoubleNode copyHead = head;
         do {
@@ -83,7 +83,7 @@ public class CircularDoublyLinkedList {
         } while (copyHead != head);
         System.out.println("- Dato[" + data + "] No existe en la lista");
     }
-
+    @Override
     public void show() {
         DoubleNode copyHead = head;
         int i = 1;
@@ -94,7 +94,7 @@ public class CircularDoublyLinkedList {
             i++;
         } while (copyHead != head);
     }
-
+    @Override
     public boolean exist(int data) {
         if (isEmpty()) {
             return false;
@@ -108,7 +108,7 @@ public class CircularDoublyLinkedList {
         }
         return false;
     }
-
+    @Override
     public boolean isEmpty() {
         return head == null;
     }

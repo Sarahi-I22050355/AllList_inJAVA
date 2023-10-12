@@ -1,7 +1,7 @@
 
 package alllist_injava.Clases;
 
-public class DoublyLinkedList {
+public class DoublyLinkedList implements I_methodList{
         private DoubleNode head;
     private DoubleNode lastNode;
         // Getter para head
@@ -29,6 +29,7 @@ public class DoublyLinkedList {
     }
 
     // Agrega un nuevo nodo con el dato proporcionado al final de la lista
+    @Override
     public void add(int data) {
         DoubleNode newNode = new DoubleNode();
         newNode.setData(data);
@@ -51,6 +52,7 @@ public class DoublyLinkedList {
     }
 
     // Elimina un nodo con el dato proporcionado de la lista
+    @Override
     public void delete(int data) {
         DoubleNode currentNode = getHead();
 
@@ -84,6 +86,7 @@ public class DoublyLinkedList {
     }
 
     // Busca un dato en la lista y muestra un mensaje indicando si existe o no
+    @Override
     public void search(int data) {
         DoubleNode currentNode = getHead();
         while (currentNode != null) {
@@ -97,6 +100,7 @@ public class DoublyLinkedList {
     }
 
     // Muestra todos los nodos y sus datos en la lista
+    @Override
     public void show() {
         int i = 1;
         DoubleNode currentNode = getHead();
@@ -109,6 +113,7 @@ public class DoublyLinkedList {
     }
 
     // Comprueba si un dato existe en la lista
+    @Override
     public boolean exist(int data) {
         if (isEmpty()) {
             return false;
@@ -122,7 +127,7 @@ public class DoublyLinkedList {
         }
         return false;
     }
-
+    @Override
     public boolean isEmpty() {
         return head == null;
     }
