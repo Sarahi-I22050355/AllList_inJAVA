@@ -2,12 +2,8 @@ package alllist_injava.Clases;
 
 public class Node {
     //encapsulamiento
-    private Node next;
-    private int data;
-
-    public Node() {
-        next = null;
-    }
+    protected Node next;
+    protected int data;
 
     public Node(int d) {
         data = d;

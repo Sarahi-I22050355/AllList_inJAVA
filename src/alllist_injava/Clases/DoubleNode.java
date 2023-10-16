@@ -1,23 +1,17 @@
 
 package alllist_injava.Clases;
 
-public class DoubleNode {
-    //encapsulamiento
+public class DoubleNode{
     private DoubleNode back;
     private DoubleNode next;
     private int data;
 
-    public DoubleNode() {
-        back = null;
-        next = null;
+    public DoubleNode(int data) {
+        this.data = data;
+        this.next = null;
+        this.back = null;
     }
 
-    public DoubleNode(int d) {
-        data = d;
-        back = null;
-        next = null;
-    }
-    //metodos accesores
     public DoubleNode getBack() {
         return back;
     }

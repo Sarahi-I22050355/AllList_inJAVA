@@ -1,109 +1,124 @@
 
 package alllist_injava.Clases;
-
 public class DoublyLinkedList implements I_methodList{
-        private DoubleNode head;
+    private DoubleNode head;
     private DoubleNode lastNode;
-        // Getter para head
-    public DoubleNode getHead() {
-        return head;
-    }
-
-    // Setter para head
-    public void setHead(DoubleNode head) {
-        this.head = head;
-    }
-
-    // Getter para lastNode
-    public DoubleNode getLastNode() {
-        return lastNode;
-    }
-
-    // Setter para lastNode
-    public void setLastNode(DoubleNode lastNode) {
-        this.lastNode = lastNode;
-    }
 
     public DoublyLinkedList() {
-        head=null;
+        clear();
     }
 
-    // Agrega un nuevo nodo con el dato proporcionado al final de la lista
-    @Override
     public void add(int data) {
-        DoubleNode newNode = new DoubleNode();
-        newNode.setData(data);
+        DoubleNode newNode = new DoubleNode(data);
 
         if (isEmpty()) {
-            setHead(newNode);
-            getHead().setNext(null);
-            getHead().setBack(null);
-            setLastNode(getHead());
+            newNode.setNext(null);
+            newNode.setBack(null);
+            head = newNode;
+            lastNode = newNode;
+            return;
         }
 
         if (exist(newNode.getData())) {
             return;
-        } else {
-            getLastNode().setNext(newNode);
-            newNode.setNext(null);
-            newNode.setBack(getLastNode());
-            setLastNode(newNode);
         }
-    }
 
-    // Elimina un nodo con el dato proporcionado de la lista
-    @Override
-    public void delete(int data) {
-        DoubleNode currentNode = getHead();
-
-        if (getHead().getData() == data) {
-            // Primer elemento
-            System.out.println("- Dato[" + data + "] se elimino de la lista");
-            getHead().getNext().setBack(null);
-            setHead(getHead().getNext());
+        if (newNode.getData() < head.getData()) {
+            head.setBack(newNode);
+            newNode.setNext(head);
+            head = lastNode;
+            head = newNode;
             return;
         }
 
-        while (currentNode.getNext() != null) {
-            if (currentNode.getNext().getData() == data) {
-                if (currentNode.getNext() == getLastNode()) {
-                    // Último elemento
-                    System.out.println("- Dato[" + data + "] se elimino de la lista");
-                    setLastNode(currentNode);
-                    getLastNode().setNext(null);
-                    return;
-                }
+        if (newNode.getData() > lastNode.getData()) {
+            lastNode.setNext(newNode);
+            newNode.setBack(lastNode);
+            lastNode = newNode;
+            return;
+        }
 
-                // X posición de la lista
-                System.out.println("- Dato[" + data + "] se elimino de la lista");
-                currentNode.getNext().getNext().setBack(currentNode);
-                currentNode.setNext(currentNode.getNext().getNext());
-                return;
-            }
+        DoubleNode currentNode = head;
+        while (currentNode.getNext() != head && currentNode.getNext().getData() < newNode.getData()) {
             currentNode = currentNode.getNext();
         }
+
+        newNode.setNext(currentNode.getNext());
+        newNode.setBack(currentNode);
+        currentNode.getNext().setBack(newNode);
+        currentNode.setNext(newNode);
+    }
+
+    public void delete(int data) {
+        if (isEmpty()) {
+            return;
+        }
+
+        if (head.getData() == data) {
+            System.out.println("- Dato[" + data + "] se eliminó de la lista");
+            head.getNext().setBack(null);
+            head = head.getNext();
+            return;
+        }
+
+        if (lastNode.getData() == data) {
+            System.out.println("- Dato[" + data + "] se eliminó de la lista");
+            lastNode = lastNode.getBack();
+            lastNode.setNext(null);
+            return;
+        }
+
+        DoubleNode currentNode = head;
+        while (currentNode.getNext() != null && currentNode.getNext().getData() < data) {
+            currentNode = currentNode.getNext();
+        }
+
+        if (currentNode.getNext().getData() == data) {
+            System.out.println("- Dato[" + data + "] se eliminó de la lista");
+            currentNode.getNext().getNext().setBack(currentNode);
+            currentNode.setNext(currentNode.getNext().getNext());
+            return;
+        }
+
         System.out.println("- Dato[" + data + "] no existe en la lista");
     }
 
-    // Busca un dato en la lista y muestra un mensaje indicando si existe o no
-    @Override
     public void search(int data) {
-        DoubleNode currentNode = getHead();
-        while (currentNode != null) {
-            if (currentNode.getData() == data) {
-                System.out.println("- Dato[" + data + "] Existe en la lista");
-                return;
-            }
+        if (isEmpty()) {
+            return;
+        }
+
+        if (head.getData() == data) {
+            System.out.println("- Dato[" + data + "] Existe en la lista");
+            return;
+        }
+
+        if (lastNode.getData() == data) {
+            System.out.println("- Dato[" + data + "] Existe en la lista");
+            return;
+        }
+
+        DoubleNode currentNode = head;
+        while (currentNode.getNext() != null && currentNode.getNext().getData() <= data) {
             currentNode = currentNode.getNext();
         }
-        System.out.println("- Dato[" + data + "] No existe en la lista");
+
+        if (currentNode.getData() == data) {
+            System.out.println("- Dato[" + data + "] Existe en la lista");
+            return;
+        }
+
+        System.out.println("- Dato[" + data + "] No Existe en la lista");
     }
 
-    // Muestra todos los nodos y sus datos en la lista
-    @Override
     public void show() {
+        if (isEmpty()) {
+            System.out.println("Lista vacía");
+            return;
+        }
+
+        DoubleNode currentNode = head;
         int i = 1;
-        DoubleNode currentNode = getHead();
         System.out.println("=== Mi Lista doblemente enlazada ===");
         while (currentNode != null) {
             System.out.println("- Nodo[" + i + "] y dato: " + currentNode.getData());
@@ -112,23 +127,56 @@ public class DoublyLinkedList implements I_methodList{
         }
     }
 
-    // Comprueba si un dato existe en la lista
-    @Override
+    public void showRevers() {
+        if (isEmpty()) {
+            System.out.println("Lista vacía");
+            return;
+        }
+
+        DoubleNode currentNode = lastNode;
+        int i = 1;
+        System.out.println("=== Mi Lista doblemente enlazada Reversa ===");
+        do {
+            System.out.println("- Nodo[" + i + "] y dato: " + currentNode.getData());
+            currentNode = currentNode.getBack();
+            i++;
+        } while (currentNode != null);
+    }
+
     public boolean exist(int data) {
         if (isEmpty()) {
             return false;
         }
-        DoubleNode currentNode = getHead();
-        while (currentNode.getNext() != null) {
-            if (currentNode.getData() == data) {
-                return true;
-            }
+
+        if (head.getData() == data) {
+            return true;
+        }
+
+        DoubleNode currentNode = head;
+        while (currentNode.getNext() != null && currentNode.getNext().getData() <= data) {
             currentNode = currentNode.getNext();
         }
+
+        if (currentNode.getData() == data) {
+            return true;
+        }
+
         return false;
     }
-    @Override
+
     public boolean isEmpty() {
         return head == null;
+    }
+
+    public void clear() {
+        head = null;
+    }
+
+    public DoubleNode getHead() {
+        return head;
+    }
+
+    public DoubleNode getLastNode() {
+        return lastNode;
     }
 }

@@ -1,89 +1,97 @@
 
 package alllist_injava.Clases;
-
-public class SimpleList implements I_methodList{
+public class SimpleList implements I_methodList {
     private Node head;
-    
-    public Node getHead() {
-    return head;
-    }
-
-    public void setHead(Node head) {
-        this.head = head;
-    }
 
     public SimpleList() {
-        head=null;
+        clear();
     }
-    @Override
+
     public void add(int data) {
-        Node newNode = new Node();
-        newNode.setData(data);
+        Node newNode = new Node(data);
 
         if (isEmpty()) {
-            setHead(newNode);
+            head = newNode;
             return;
         }
 
         if (exist(newNode.getData())) {
             return;
-        } else {
-            Node currentNode = getHead();
-            while (currentNode.getNext() != null) {
-                currentNode = currentNode.getNext();
-            }
-            currentNode.setNext(newNode);
         }
+
+        if (newNode.getData() < head.getData()) {
+            newNode.setNext(head);
+            head = newNode;
+            return;
+        }
+
+        Node currentNode = head;
+        while (currentNode.getNext() != null && currentNode.getNext().getData() < newNode.getData()) {
+            currentNode = currentNode.getNext();
+        }
+
+        newNode.setNext(currentNode.getNext());
+        currentNode.setNext(newNode);
     }
-    @Override
+
     public void delete(int data) {
         if (isEmpty()) {
             return;
         }
 
-        if (getHead().getData() == data) {
-            setHead(getHead().getNext());
-            System.out.println("- Dato[" + data + "] se elimino de la lista");
+        if (head.getData() == data) {
+            head = head.getNext();
+            System.out.println("- Dato[" + data + "] se eliminó de la lista");
             return;
         }
 
-        Node currentNode = getHead();
-        while (currentNode.getNext() != null) {
-            if (currentNode.getNext().getData() == data) {
-                currentNode.setNext(currentNode.getNext().getNext());
-                System.out.println("- Dato[" + data + "] se elimino de la lista");
-                return;
-            }
+        Node currentNode = head;
+        while (currentNode.getNext() != null && currentNode.getNext().getData() < data) {
             currentNode = currentNode.getNext();
         }
+
+        if (currentNode.getNext() != null && currentNode.getNext().getData() == data) {
+            currentNode.setNext(currentNode.getNext().getNext());
+            System.out.println("- Dato[" + data + "] se eliminó de la lista");
+            return;
+        }
+
         System.out.println("- Dato[" + data + "] no existe en la lista");
     }
-    @Override
+
     public void search(int data) {
         if (isEmpty()) {
             System.out.println("Lista vacía...");
             return;
         }
 
-        Node currentNode = getHead();
-        while (currentNode.getNext() != null) {
-            if (currentNode.getData() == data) {
-                System.out.println("- Dato[" + data + "] Existe en la lista");
-                return;
-            }
+        if (head.getData() == data) {
+            System.out.println("- Dato[" + data + "] Existe en la lista");
+            return;
+        }
+
+        Node currentNode = head;
+        while (currentNode != null && currentNode.getData() < data) {
             currentNode = currentNode.getNext();
         }
+
+        if (currentNode != null && currentNode.getData() == data) {
+            System.out.println("- Dato[" + data + "] Existe en la lista");
+            return;
+        }
+
         System.out.println("- Dato[" + data + "] No Existe en la lista");
     }
-    @Override
+
     public void show() {
         int i = 1;
+
         if (isEmpty()) {
             System.out.println("Lista vacía");
             return;
         }
 
-        Node currentNode = getHead();
+        Node currentNode = head;
         System.out.println("=== Mi lista simple ===");
         while (currentNode != null) {
             System.out.println("- Nodo[" + i + "] y dato: " + currentNode.getData());
@@ -91,24 +99,43 @@ public class SimpleList implements I_methodList{
             i++;
         }
     }
-    @Override
+
     public boolean exist(int data) {
         if (isEmpty()) {
             return false;
         }
 
-        Node currentNode = getHead();
-        while (currentNode.getNext() != null) {
-            if (currentNode.getData() == data) {
-                return true;
-            }
+        if (head.getData() == data) {
+            return true;
+        }
+
+        Node currentNode = head;
+        while (currentNode.getNext() != null && currentNode.getNext().getData() <= data) {
             currentNode = currentNode.getNext();
         }
+
+        if (currentNode.getData() == data) {
+            return true;
+        }
+
         return false;
     }
-    @Override
+
     public boolean isEmpty() {
         return head == null;
     }
+
+    public void clear() {
+        head = null;
+    }
+
+    public Node getHead() {
+        return head;
+    }
+
+    public void setHead(Node head) {
+        this.head = head;
+    }
 }
+
 
